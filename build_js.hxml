@@ -1,0 +1,7 @@
+-lib heaps
+-js game.js
+-main Main
+-cp .
+-debug
+-lib hxbit
+

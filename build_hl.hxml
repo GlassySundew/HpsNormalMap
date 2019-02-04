@@ -1,0 +1,9 @@
+-lib heaps
+-lib hlsdl
+
+-hl game.hl
+-main Main
+
+-D windowSize=1280x720
+
+-dce full
