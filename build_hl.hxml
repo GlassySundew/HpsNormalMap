@@ -7,5 +7,4 @@
 -D windowSize=1280x720
 -D standalone
 
--cp src
 -cp .

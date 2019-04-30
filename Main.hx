@@ -2,7 +2,7 @@ import h3d.mat.Texture;
 import h3d.scene.*;
 import h3d.shader.NormalMap;
 import hxd.*;
-
+import hxd.Key in K ;
 class Main extends hxd.App {
 	var time:Float = 0.;
 	var world:h2d.Layers;
@@ -15,7 +15,7 @@ class Main extends hxd.App {
 	var lightVec:h3d.Vector;
 	var spec:Texture;
 	var tex:Texture;
-
+var z:Float = 0;
 	public var spr:h2d.Anim;
 
 	override function init() {
@@ -36,15 +36,15 @@ class Main extends hxd.App {
 		obj.material.mainPass.enableLights = true;
 		obj.material.shadows = false;
 		obj.material.mainPass.addShader(new NormalMap(spec));
-		obj.rotate(0, 0, 1.5708);
+		obj.rotate(0, 0,2.35619);
 
 		myPointLight = new h3d.scene.fwd.PointLight(s3d);
 		myPointLight.x = x;
 		myPointLight.y = y;
-		myPointLight.z = 0.5;
-		myPointLight.enableSpecular = true;
+		myPointLight.z = 0.7;
+		myPointLight.enableSpecular = false;
 
-		s3d.lightSystem.ambientLight.set(0.5, 0.5, 0.5);
+		s3d.lightSystem.ambientLight.set(0.0, 0.0, 0.0);
 		s3d.camera.pos.set(1,1, 3.9, 0);
 	}
 
@@ -53,8 +53,12 @@ class Main extends hxd.App {
 		y = Std.int(s2d.mouseY);
 		x -= Std.int(s2d.width / 2);
 		y -= Std.int(s2d.height / 2);
-		myPointLight.x = (y / 400);
-		myPointLight.y = (-x / 400);
+		myPointLight.x = (y / 200);
+		myPointLight.y = (-x / 200);
+		if (K.isPressed(K.MOUSE_WHEEL_UP)){
+z+=0.1;
+		}
+		s3d.camera.pos.set(1,1, 3.9, z);
 	}
 
 	static function main() {
