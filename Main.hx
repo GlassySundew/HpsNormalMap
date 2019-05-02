@@ -1,3 +1,5 @@
+import h3d.prim.Cube;
+import h3d.prim.Primitive;
 import h3d.mat.Texture;
 import h3d.scene.*;
 import h3d.shader.NormalMap;
@@ -16,6 +18,7 @@ class Main extends hxd.App {
 	var spec:Texture;
 	var tex:Texture;
 var z:Float = 0;
+var prim : Cube;
 	public var spr:h2d.Anim;
 
 	override function init() {
@@ -26,7 +29,7 @@ var z:Float = 0;
 		tex = hxd.Res.diff.toTexture();
 		tex.filter = Nearest;
 
-		var prim = new h3d.prim.Cube(1, 1, 0);
+		prim = new h3d.prim.Cube(1, 1, 0);
 		prim.translate(-0.5, -0.5, -0.5);
 		prim.addNormals();
 		prim.addUVs();
@@ -36,16 +39,16 @@ var z:Float = 0;
 		obj.material.mainPass.enableLights = true;
 		obj.material.shadows = false;
 		obj.material.mainPass.addShader(new NormalMap(spec));
-		obj.rotate(0, 0,2.35619);
+		obj.rotate(0, 0, 2.35619);
 
 		myPointLight = new h3d.scene.fwd.PointLight(s3d);
 		myPointLight.x = x;
 		myPointLight.y = y;
-		myPointLight.z = 0.7;
+		myPointLight.z = 0.2;
 		myPointLight.enableSpecular = false;
 
 		s3d.lightSystem.ambientLight.set(0.0, 0.0, 0.0);
-		s3d.camera.pos.set(1,1, 3.9, 0);
+		s3d.camera.pos.set(1,1, 3.9,1);
 	}
 
 	override function update(dt:Float) {
@@ -56,9 +59,9 @@ var z:Float = 0;
 		myPointLight.x = (y / 200);
 		myPointLight.y = (-x / 200);
 		if (K.isPressed(K.MOUSE_WHEEL_UP)){
-z+=0.1;
+z+=1;trace(z);
 		}
-		s3d.camera.pos.set(1,1, 3.9, z);
+	obj.rotate(0,0,z);
 	}
 
 	static function main() {
