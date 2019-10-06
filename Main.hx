@@ -1,10 +1,11 @@
-import h3d.prim.Cube;
+import h3d.prim.PlanePrim;
 import h3d.prim.Primitive;
 import h3d.mat.Texture;
 import h3d.scene.*;
 import h3d.shader.NormalMap;
 import hxd.*;
-import hxd.Key in K ;
+import hxd.Key in K;
+
 class Main extends hxd.App {
 	var time:Float = 0.;
 	var world:h2d.Layers;
@@ -17,11 +18,12 @@ class Main extends hxd.App {
 	var lightVec:h3d.Vector;
 	var spec:Texture;
 	var tex:Texture;
-var z:Float = 0;
-var prim : Cube;
+	var z:Float = 0;
+
+	// var prim:h3d.prim.Plane2D;
 	public var spr:h2d.Anim;
 
-	override function init() {
+	override function init() { 
 		super.init();
 
 		spec = hxd.Res.spec.toTexture();
@@ -29,16 +31,14 @@ var prim : Cube;
 		tex = hxd.Res.diff.toTexture();
 		tex.filter = Nearest;
 
-		prim = new h3d.prim.Cube(1, 1, 0);
-		prim.translate(-0.5, -0.5, -0.5);
-		prim.addNormals();
-		prim.addUVs();
-		prim.addTangents();
+		var prim = new h3d.prim.PlanePrim(1.1, 1.1);
 
 		obj = new Mesh(prim, h3d.mat.Material.create(tex), s3d);
-		obj.material.mainPass.enableLights = true;
+		obj.material.mainPass.enableLights = false;
 		obj.material.shadows = false;
-		obj.material.mainPass.addShader(new NormalMap(spec));
+
+		trace("govno");
+		// obj.material.mainPass.addShader(new NormalMap(spec));
 		obj.rotate(0, 0, 2.35619);
 
 		myPointLight = new h3d.scene.fwd.PointLight(s3d);
@@ -48,7 +48,7 @@ var prim : Cube;
 		myPointLight.enableSpecular = false;
 
 		s3d.lightSystem.ambientLight.set(0.0, 0.0, 0.0);
-		s3d.camera.pos.set(1,1, 3.9,1);
+		// s3d.camera.pos.set(1,1, 3.9,1);
 	}
 
 	override function update(dt:Float) {
@@ -58,14 +58,15 @@ var prim : Cube;
 		y -= Std.int(s2d.height / 2);
 		myPointLight.x = (y / 200);
 		myPointLight.y = (-x / 200);
-		if (K.isPressed(K.MOUSE_WHEEL_UP)){
-z+=1;trace(z);
+		if (K.isPressed(K.MOUSE_WHEEL_UP)) {
+			z += 1;
+			trace(z);
 		}
-	obj.rotate(0,0,z);
+		obj.rotate(0, 0, z);
 	}
 
 	static function main() {
-		hxd.Res.initLocal();
+		hxd.Res.initEmbed();
 
 		new Main();
 	}
