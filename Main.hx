@@ -23,7 +23,7 @@ class Main extends hxd.App {
 	// var prim:h3d.prim.Plane2D;
 	public var spr:h2d.Anim;
 
-	override function init() { 
+	override function init() {  
 		super.init();
 
 		spec = hxd.Res.spec.toTexture();
